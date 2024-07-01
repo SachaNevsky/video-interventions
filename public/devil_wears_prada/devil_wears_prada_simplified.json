@@ -1,0 +1,204 @@
+{
+    "captions": [
+        {
+            "start": "00:00:00.080",
+            "end": "00:00:02.220",
+            "text": "Where are the belts for this jacket?",
+            "flesch_kincaid": "0",
+            "duration": 2.14,
+            "ttsDuration": 0
+        },
+        {
+            "start": "00:00:02.660",
+            "end": "00:00:04.660",
+            "text": "Why is no one ready?",
+            "flesch_kincaid": "0",
+            "duration": 2.0,
+            "ttsDuration": 0
+        },
+        {
+            "start": "00:00:04.860",
+            "end": "00:00:09.580",
+            "text": "Here. It's a tough choice. They're so different.",
+            "flesch_kincaid": "0",
+            "duration": 4.72,
+            "ttsDuration": 0
+        },
+        {
+            "start": "00:00:09.780",
+            "end": "00:00:10.560",
+            "text": "Mm...",
+            "flesch_kincaid": "0",
+            "duration": 0.78,
+            "ttsDuration": 0
+        },
+        {
+            "start": "00:00:16.140",
+            "end": "00:00:17.460",
+            "text": "Something funny?",
+            "flesch_kincaid": "8",
+            "duration": 1.32,
+            "ttsDuration": 0
+        },
+        {
+            "start": "00:00:20.720",
+            "end": "00:00:28.360",
+            "text": "Oh... no, no, nothing. It's just that both those belts look the same to me.",
+            "flesch_kincaid": "0",
+            "duration": 7.64,
+            "ttsDuration": 0
+        },
+        {
+            "start": "00:00:28.360",
+            "end": "00:00:32.660",
+            "text": "You know, I'm still learning about this stuff and, uh...",
+            "flesch_kincaid": "0",
+            "duration": 4.3,
+            "ttsDuration": 0
+        },
+        {
+            "start": "00:00:32.660",
+            "end": "00:00:35.400",
+            "text": "\"This... stuff\"?",
+            "flesch_kincaid": "0",
+            "duration": 2.74,
+            "ttsDuration": 0
+        },
+        {
+            "start": "00:00:35.880",
+            "end": "00:00:38.780",
+            "text": "Oh. Okay. I see.",
+            "flesch_kincaid": "0",
+            "duration": 2.9,
+            "ttsDuration": 0
+        },
+        {
+            "start": "00:00:38.780",
+            "end": "00:00:41.220",
+            "text": "You think this has nothing to do with you.",
+            "flesch_kincaid": "0",
+            "duration": 2.44,
+            "ttsDuration": 0
+        },
+        {
+            "start": "00:00:41.980",
+            "end": "00:00:48.880",
+            "text": "You go to your closet and pick, I don't know, that old blue sweater",
+            "flesch_kincaid": "0",
+            "duration": 6.9,
+            "ttsDuration": 0
+        },
+        {
+            "start": "00:00:48.880",
+            "end": "00:00:54.380",
+            "text": "... because you want to show you don't care about what you wear.",
+            "flesch_kincaid": "0",
+            "duration": 5.5,
+            "ttsDuration": 0
+        },
+        {
+            "start": "00:00:54.380",
+            "end": "00:00:58.180",
+            "text": "But you don't know that sweater is not just blue,",
+            "flesch_kincaid": "1",
+            "duration": 3.8,
+            "ttsDuration": 0
+        },
+        {
+            "start": "00:00:58.180",
+            "end": "00:01:02.220",
+            "text": "it's not turquoise, it's not lapis, it's cerulean.",
+            "flesch_kincaid": "5",
+            "duration": 4.04,
+            "ttsDuration": 0
+        },
+        {
+            "start": "00:01:02.900",
+            "end": "00:01:09.460",
+            "text": "And you don't know that in 2002, Oscar de la Renta made a collection of cerulean gowns.",
+            "flesch_kincaid": "7",
+            "duration": 6.56,
+            "ttsDuration": 0
+        },
+        {
+            "start": "00:01:09.460",
+            "end": "00:01:13.980",
+            "text": "And then Yves Saint Laurent, wasn't it? Showed cerulean military jackets?",
+            "flesch_kincaid": "9",
+            "duration": 4.52,
+            "ttsDuration": 0
+        },
+        {
+            "start": "00:01:13.980",
+            "end": "00:01:15.020",
+            "text": "I think we need a jacket here.",
+            "flesch_kincaid": "0",
+            "duration": 1.04,
+            "ttsDuration": 0
+        },
+        {
+            "start": "00:01:15.380",
+            "end": "00:01:16.000",
+            "text": "Mm.",
+            "flesch_kincaid": "0",
+            "duration": 0.62,
+            "ttsDuration": 0
+        },
+        {
+            "start": "00:01:16.580",
+            "end": "00:01:20.540",
+            "text": "And then cerulean quickly showed up in the collections of eight different designers.",
+            "flesch_kincaid": "6",
+            "duration": 3.96,
+            "ttsDuration": 0
+        },
+        {
+            "start": "00:01:20.540",
+            "end": "00:01:24.060",
+            "text": "And then it filtered down through the department stores",
+            "flesch_kincaid": "4",
+            "duration": 3.52,
+            "ttsDuration": 0
+        },
+        {
+            "start": "00:01:24.060",
+            "end": "00:01:31.480",
+            "text": "... and then ended up in some sad Casual Corner where you found it in a clearance bin.",
+            "flesch_kincaid": "9",
+            "duration": 7.42,
+            "ttsDuration": 0
+        },
+        {
+            "start": "00:01:31.480",
+            "end": "00:01:36.060",
+            "text": "However, that blue represents millions of dollars and many jobs",
+            "flesch_kincaid": "8",
+            "duration": 4.58,
+            "ttsDuration": 0
+        },
+        {
+            "start": "00:01:36.420",
+            "end": "00:01:41.680",
+            "text": "... and it's funny how you think you've made a choice that keeps you out of fashion,",
+            "flesch_kincaid": "7",
+            "duration": 5.26,
+            "ttsDuration": 0
+        },
+        {
+            "start": "00:01:41.680",
+            "end": "00:01:47.400",
+            "text": "... when, in fact, you're wearing the sweater that was chosen for you by the people in this room",
+            "flesch_kincaid": "0",
+            "duration": 5.72,
+            "ttsDuration": 0
+        },
+        {
+            "start": "00:01:48.240",
+            "end": "00:01:50.260",
+            "text": "... from a pile of stuff.",
+            "flesch_kincaid": "0",
+            "duration": 2.02,
+            "ttsDuration": 0
+        }
+    ]
+}

@@ -1,0 +1,137 @@
+{
+    "captions": [
+        {
+            "start": "00:00:06.500",
+            "end": "00:00:08.900",
+            "text": "Hello and welcome to world news today.",
+            "flesch_kincaid": "4",
+            "speaker": "presenter"
+        },
+        {
+            "start": "00:00:08.900",
+            "end": "00:00:17.800",
+            "text": "If you want a new adventure and have a lot of money you could soon book a trip to the International Space Station.",
+            "flesch_kincaid": "10",
+            "speaker": "presenter"
+        },
+        {
+            "start": "00:00:17.800",
+            "end": "00:00:24.500",
+            "text": "On Friday, NASA announced it will open the International Space Station for tourism and business.",
+            "flesch_kincaid": "12",
+            "speaker": "presenter"
+        },
+        {
+            "start": "00:00:24.500",
+            "end": "00:00:28.700",
+            "text": "There will be up to two private missions per year.",
+            "flesch_kincaid": "2",
+            "speaker": "presenter"
+        },
+        {
+            "start": "00:00:28.700",
+            "end": "00:00:33.500",
+            "text": "We are allowing private astronaut missions to the International Space Station. ",
+            "flesch_kincaid": "11",
+            "speaker": "speaker"
+        },
+        {
+            "start": "00:00:33.500",
+            "end": "00:00:42.800",
+            "text": "NASA will support up to two private missions per year starting as early as 2020.",
+            "flesch_kincaid": "7",
+            "speaker": "speaker"
+        },
+        {
+            "start": "00:00:42.800",
+            "end": "00:00:50.900",
+            "text": "These private missions will allow approved commercial activities on the station.",
+            "flesch_kincaid": "14",
+            "speaker": "speaker"
+        },
+        {
+            "start": "00:00:50.900",
+            "end": "00:00:52.500",
+            "text": "So now you know.",
+            "flesch_kincaid": "-2",
+            "speaker": "presenter"
+        },
+        {
+            "start": "00:00:52.500",
+            "end": "00:01:00.100",
+            "text": "Keith Cowing is an astrobiologist and former NASA employee who edits the online blog NASA Watch.",
+            "flesch_kincaid": "11",
+            "speaker": "presenter"
+        },
+        {
+            "start": "00:01:00.100",
+            "end": "00:01:02.300",
+            "text": "Keith, what do you make of this?",
+            "flesch_kincaid": "-1",
+            "speaker": "presenter"
+        },
+        {
+            "start": "00:01:02.300",
+            "end": "00:01:13.200",
+            "text": "It's not surprising. The space station has had commercial visitors before by the Russians, but it was improvised.",
+            "flesch_kincaid": "8",
+            "speaker": "interviewee"
+        },
+        {
+            "start": "00:01:13.200",
+            "end": "00:01:21.200",
+            "text": "Now NASA has clarified the process for doing commercial activities in the space station.",
+            "flesch_kincaid": "10",
+            "speaker": "interviewee"
+        },
+        {
+            "start": "00:01:21.200",
+            "end": "00:01:28.500",
+            "text": "It's clear now, like an advert for a resort where you can choose activities and then pay.",
+            "flesch_kincaid": "7",
+            "speaker": "interviewee"
+        },
+        {
+            "start": "00:01:28.500",
+            "end": "00:01:34.900",
+            "text": "What's the incentive? Bringing more private money into space research?",
+            "flesch_kincaid": "7",
+            "speaker": "presenter"
+        },
+        {
+            "start": "00:01:34.900",
+            "end": "00:01:40.000",
+            "text": "There has been interest in commercializing the space station for many years.",
+            "flesch_kincaid": "9",
+            "speaker": "interviewee"
+        },
+        {
+            "start": "00:01:40.000",
+            "end": "00:01:48.200",
+            "text": "With NASA's plans to return to the moon, they are looking to offset some costs.",
+            "flesch_kincaid": "5",
+            "speaker": "interviewee"
+        },
+        {
+            "start": "00:01:48.200",
+            "end": "00:01:54.200",
+            "text": "But President Trump tweeted that NASA should not talk about going back to the moon, so things might change.",
+            "flesch_kincaid": "7",
+            "speaker": "interviewee"
+        },
+        {
+            "start": "00:01:54.200",
+            "end": "00:02:08.800",
+            "text": "The idea is to move routine activities closer to Earth, save money, and fund NASA's exploration of new frontiers.",
+            "flesch_kincaid": "11",
+            "speaker": "interviewee"
+        },
+        {
+            "start": "00:02:08.800",
+            "end": "00:02:15.160",
+            "text": "It's about re-balancing payments for a bigger plan of exploration.",
+            "flesch_kincaid": "10",
+            "speaker": "interviewee"
+        }
+    ]
+}
