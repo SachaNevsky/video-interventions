@@ -116,7 +116,7 @@ export default function Page() {
                 </button>
             </div>
             <div className="mx-auto w-3/5 py-4">
-                <video ref={videoRef} controls muted={muted} className="h-full mx-auto" src={`/${video}/${video}.mp4`} type="video/mp4">
+                <video ref={videoRef} muted={muted} className="h-full mx-auto" src={`/${video}/${video}.mp4`} type="video/mp4">
                     <track id="subtitles" label="English" kind="subtitles" srcLang="en" src={`/${video}/${video}.vtt`} />
                 </video>
             </div>

@@ -7,7 +7,9 @@ export default function RootLayout({ children }) {
 
 	useEffect(() => {
 		if (typeof window !== 'undefined') {
-			const socket = new WebSocket('ws://192.168.1.87:8080');
+			const IPv4 = process.env.NEXT_PUBLIC_WS_IP;
+			console.log(IPv4);
+			const socket = new WebSocket(`ws://${IPv4}:8080`);
 
 			socket.onopen = () => {
 				console.log('Connected to WebSocket server');

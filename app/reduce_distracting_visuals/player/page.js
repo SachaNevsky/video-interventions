@@ -71,8 +71,8 @@ export default function Page() {
                 </button>
             </div>
             <div className="mx-auto w-3/5 py-4 text-center grid grid-cols-1 grid-rows-1">
-                <video id="original" ref={videoRef} controls muted={muted} src={`/${video}/${video}.mp4`} type="video/mp4" className="h-full mx-auto col-start-1 row-start-1 z-10" />
-                <video id="blurred" ref={videoRef2} controls muted src={`/${video}/${video}_blurred.mp4`} type="video/mp4" className={`h-full mx-auto col-start-1 row-start-1 ${reduceVisuals ? "z-20" : "z-0"}`} />
+                <video id="original" ref={videoRef} muted={muted} src={`/${video}/${video}.mp4`} type="video/mp4" className="h-full mx-auto col-start-1 row-start-1 z-10" />
+                <video id="blurred" ref={videoRef2} muted src={`/${video}/${video}_blurred.mp4`} type="video/mp4" className={`h-full mx-auto col-start-1 row-start-1 ${reduceVisuals ? "z-20" : "z-0"}`} />
             </div>
             <div className="mx-auto w-3/5 text-center">
                 <button className="py-5 px-8" onClick={handleMuted}>Mute {muted ? "🔇" : "🔊"}</button>

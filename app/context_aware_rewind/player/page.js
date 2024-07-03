@@ -64,7 +64,7 @@ export default function Page() {
                 </button>
             </div>
             <div className="mx-auto w-3/5 py-4 text-center">
-                <video ref={videoRef} controls muted={muted} src={`/${video}/${video}.mp4`} type="video/mp4" className="h-full mx-auto">
+                <video ref={videoRef} muted={muted} src={`/${video}/${video}.mp4`} type="video/mp4" className="h-full mx-auto">
                     <track
                         id="subtitles"
                         label="Simplified"

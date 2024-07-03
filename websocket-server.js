@@ -1,6 +1,8 @@
 const WebSocket = require('ws');
+require('dotenv').config();
 
 const server = new WebSocket.Server({ port: 8080 });
+const websocketIP = process.env.NEXT_PUBLIC_WS_IP;
 
 server.on('connection', (socket) => {
   socket.on('message', (message) => {
@@ -14,9 +16,9 @@ server.on('connection', (socket) => {
   });
 });
 
-var os = require('os');
+// var os = require('os');
+// let networkInterfaces = os.networkInterfaces();
+// let ipv4 = networkInterfaces.Ethernet.find((i) => i.family === "IPv4").address;
 
-let networkInterfaces = os.networkInterfaces();
-let ipv4 = networkInterfaces.Ethernet.find((i) => i.family === "IPv4").address;
-console.log("IPv4 Ethernet address:", ipv4)
-console.log(`WebSocket server is running on ws://192.168.1.87:8080`);
+console.log("IPv4 Ethernet address:", websocketIP)
+console.log(`WebSocket server is running on ws://${websocketIP}:8080`);

@@ -119,15 +119,15 @@ export default function Page() {
     useEffect(() => {
         setComplexIndex([]);
         if (video === "bbc_space") {
-            setCaptions(bbc_space_captions)
+            setCaptions(bbc_space_captions.captions)
         } else if (video === "university_challenge") {
-            setCaptions(university_challenge_captions)
+            setCaptions(university_challenge_captions.captions)
         } else if (video === "the_chase") {
-            setCaptions(the_chase_captions)
+            setCaptions(the_chase_captions.captions)
         } else if (video === "industry") {
-            setCaptions(industry_captions)
+            setCaptions(industry_captions.captions)
         } else if (video === "devil_wears_prada") {
-            setCaptions(devil_wears_prada_captions)
+            setCaptions(devil_wears_prada_captions.captions)
         }
     }, [video])
 

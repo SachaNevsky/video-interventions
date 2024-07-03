@@ -77,7 +77,7 @@ export default function Home() {
                 </button>
             </div>
             <div className="mx-auto w-3/5 py-4 text-center">
-                <video id="videoPlayer" ref={videoRef} controls muted className="h-full mx-auto" src={`/${video}/${video}.mp4`} type="video/mp4" />
+                <video id="videoPlayer" ref={videoRef} muted className="h-full mx-auto" src={`/${video}/${video}.mp4`} type="video/mp4" />
             </div>
             <audio id="speechAudio" src={`/${video}/${video}_speech.mp3`} type="audio/mpeg" ref={speechRef} muted={muted}></audio>
             <audio id="backgroundAudio" src={`/${video}/${video}_background.mp3`} type="audio/mpeg" ref={backgroundRef} muted={muted}></audio>
