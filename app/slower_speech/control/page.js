@@ -1,17 +1,29 @@
 "use client"
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useReducer } from 'react';
 import bbc_space_captions from "/public/bbc_space/bbc_space.json";
 import university_challenge_captions from "/public/university_challenge/university_challenge.json"
 import the_chase_captions from "/public/the_chase/the_chase.json"
 import industry_captions from "/public/industry/industry.json"
 import devil_wears_prada_captions from "/public/devil_wears_prada/devil_wears_prada.json"
 
+const reducer = (state, action) => {
+    console.log(action.type)
+    if(action.type === "changeBool") {
+        window.socket.send(JSON.stringify({ type: 'slowDown', slowDown: !state.slowDown }));
+        return {
+            ...state,
+            slowDown: !state.slowDown
+        }
+    }
+}
+
 export default function Page() {
     const [timestamp, setTimestamp] = useState(0);
     const [duration, setDuration] = useState(0);
     const [currentCaption, setCurrentCaption] = useState("");
     const [slowDown, setSlowDown] = useState(false);
+    const [state, setState] = useReducer(reducer, {slowDown: false})
     const [video, setVideo] = useState("bbc_space");
 
     const videoRef = useRef(null);
@@ -28,6 +40,14 @@ export default function Page() {
     const handlePause = () => {
         window.socket.send(JSON.stringify({ type: 'pause' }));
     };
+
+    const handlePlayPause = () => {
+        if (videoRef.current && videoRef.current.paused) {
+            window.socket.send(JSON.stringify({ type: 'play' }));
+        } else {
+            window.socket.send(JSON.stringify({ type: 'pause' }));
+        }
+    }
 
     const handleBack = () => {
         const time = videoRef.current.currentTime - 10;
@@ -148,14 +168,15 @@ export default function Page() {
             </video>
             <div className="mx-auto w-3/5 py-4 text-center row-span-1 flex flex-col">
                 <div className="pb-6 align-end grid grid-cols-1">
-                    <button className="px-8 py-5" onClick={handleSlowDown}>Slow down: {slowDown ? "👍" : "👎"}</button>
+                    {/* <button className="px-8 py-5 pointer" onClick={handleSlowDown}>Slow down: {slowDown ? "👍" : "👎"}</button> */}
+                    {slowDown !== undefined && <button className="px-8 py-5 pointer" onClick={() => {setState({type: "changeBool"}); setSlowDown(!slowDown)}}>Slow Down: {state.slowDown ? "👍" : "👎"}</button>}
                 </div>
             </div>
             <div className="mx-auto w-3/5 py-4">
                 <div className="pb-6 grid grid-cols-3">
                     <button className="px-8 py-5" onClick={handleBack}>⬅ Go back</button>
-                    <button className="px-8 py-5" onClick={handlePlay}>Play ▶</button>
-                    <button className="px-8 py-5" onClick={handlePause}>Pause ⏸</button>
+                    <button className="px-8 py-5 col-span-2" onClick={handlePlayPause}>Play ▶ / Pause ⏸</button>
+                    {/* <button className="px-8 py-5" onClick={handlePause}>Pause ⏸</button> */}
                 </div>
                 <div>
                     <input

@@ -39,6 +39,14 @@ export default function Home() {
         window.socket.send(JSON.stringify({ type: 'pause' }));
     };
 
+    const handlePlayPause = () => {
+        if (videoRef.current && videoRef.current.paused) {
+            window.socket.send(JSON.stringify({ type: 'play' }));
+        } else {
+            window.socket.send(JSON.stringify({ type: 'pause' }));
+        }
+    }
+
     const handleSeek = (event) => {
         const time = parseFloat(event.target.value);
         setTimestamp(videoRef.current.currentTime);
@@ -194,8 +202,8 @@ export default function Home() {
             <div className="mx-auto w-3/5 py-4">
                 <div className="pb-6 grid grid-cols-3">
                     <button className="px-8 py-5" onClick={handleBack}>⬅ Go back</button>
-                    <button className="px-8 py-5" onClick={handlePlay}>Play ▶</button>
-                    <button className="px-8 py-5" onClick={handlePause}>Pause ⏸</button>
+                    <button className="px-8 py-5 col-span-2" onClick={handlePlayPause}>Play ▶ / Pause ⏸</button>
+                    {/* <button className="px-8 py-5" onClick={handlePause}>Pause ⏸</button> */}
                 </div>
                 <div>
                     <input

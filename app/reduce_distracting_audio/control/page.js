@@ -1,6 +1,17 @@
 'use client';
 
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useReducer } from 'react';
+
+const reducer = (state, action) => {
+    console.log(action.type)
+    if(action.type === "changeBool") {
+        window.socket.send(JSON.stringify({ type: 'toggleBackground', toggleBackground: state.toggleBackground, speechVolume: state.speechVolume, backgroundVolume: state.backgroundVolume }));
+        return {
+            ...state,
+            toggleBackground: !state.toggleBackground
+        }
+    }
+}
 
 export default function Page() {
 
@@ -10,7 +21,8 @@ export default function Page() {
     const [speechVolume, setSpeechVolume] = useState(100);
     const [backgroundVolume, setBackgroundVolume] = useState(50);
     const [video, setVideo] = useState("bbc_space");
-
+    const [state, setState] = useReducer(reducer, {toggleBackground: false, speechVolume: speechVolume, backgroundVolume: backgroundVolume})
+    
     const videoRef = useRef(null);
     const speechRef = useRef(null);
     const backgroundRef = useRef(null);
@@ -22,6 +34,14 @@ export default function Page() {
     const handlePause = () => {
         window.socket.send(JSON.stringify({ type: 'pauseAll', time: videoRef.current.currentTime }));
     };
+
+    const handlePlayPause = () => {
+        if (videoRef.current && videoRef.current.paused) {
+            window.socket.send(JSON.stringify({ type: 'playAll', time: videoRef.current.currentTime }));
+        } else {
+            window.socket.send(JSON.stringify({ type: 'pauseAll', time: videoRef.current.currentTime }));
+        }
+    }
 
     const handleBack = () => {
         const time = videoRef.current.currentTime - 10;
@@ -88,7 +108,8 @@ export default function Page() {
             </div>
             <div className="mx-auto w-3/5 py-4">
                 <div className="pb-6">
-                    <button className="m-auto px-8 py-5" onClick={handleToggleBackground}>Reduce Background Noise {toggleBackground ? "👍" : "👎"}</button>
+                    {/* <button className="m-auto px-8 py-5" onClick={handleToggleBackground}>Reduce Background Noise {toggleBackground ? "👍" : "👎"}</button> */}
+                    {toggleBackground !== undefined && <button className="px-8 py-5 pointer" onClick={() => {setState({type: "changeBool"}); setToggleBackground(!toggleBackground)}}>Reduce background noise: {state.toggleBackground ? "👍" : "👎"}</button>}
                 </div>
                 {toggleBackground &&
                     <div className="grid grid-cols-4 grid-rows-2 gap-4 w-full">
@@ -109,9 +130,10 @@ export default function Page() {
             </div>
             <div className="mx-auto w-3/5 py-4">
                 <div className="pb-6 grid grid-cols-3">
-                    <button className="px-8 py-5" onClick={handleBack}>⬅ Back</button>
-                    <button className="px-8 py-5" onClick={handlePlay}>Play ▶</button>
-                    <button className="px-8 py-5" onClick={handlePause}>Pause ⏸</button>
+                    <button className="px-8 py-5" onClick={handleBack}>⬅ Go Back</button>
+                    <button className="px-8 py-5 col-span-2" onClick={handlePlayPause}>Play ▶ / Pause ⏸</button>
+                    {/* <button className="px-8 py-5" onClick={handlePlay}>Play ▶</button>
+                    <button className="px-8 py-5" onClick={handlePause}>Pause ⏸</button> */}
                 </div>
                 <div>
                     <input

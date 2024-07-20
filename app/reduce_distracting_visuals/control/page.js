@@ -1,11 +1,23 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useReducer } from "react";
+
+const reducer = (state, action) => {
+    console.log(action.type)
+    if (action.type === "changeBool") {
+        window.socket.send(JSON.stringify({ type: 'reduceVisuals', reduceVisuals: !state.reduceVisuals }));
+        return {
+            ...state,
+            reduceVisuals: !state.reduceVisuals
+        }
+    }
+}
 
 export default function Page() {
     const [timestamp, setTimestamp] = useState(0);
     const [duration, setDuration] = useState(0);
     const [reduceVisuals, setReduceVisuals] = useState(false);
+    const [state, setState] = useReducer(reducer, { reduceVisuals: false })
     const [video, setVideo] = useState("bbc_space");
 
     const videoRef = useRef(null);
@@ -18,6 +30,19 @@ export default function Page() {
     const handlePause = () => {
         window.socket.send(JSON.stringify({ type: 'pauseBoth' }));
     };
+
+    const handlePlayPause = () => {
+        if (videoRef.current && videoRef.current.paused) {
+            window.socket.send(JSON.stringify({ type: 'playBoth' }));
+        } else {
+            window.socket.send(JSON.stringify({ type: 'pauseBoth' }));
+        }
+    }
+
+    const handleBack = () => {
+        const time = videoRef.current.currentTime - 10;
+        window.socket.send(JSON.stringify({ type: 'back10Both', time: time }));
+    }
 
     const handleSeek = (event) => {
         const time = parseFloat(event.target.value);
@@ -71,13 +96,20 @@ export default function Page() {
             <video id="blurred" ref={videoRef2} controls muted src={`/${video}/${video}.mp4`} type="video/mp4" className="h-full mx-auto hidden" />
             <div className="mx-auto w-3/5 py-4 text-center row-span-1 flex flex-col">
                 <div className="pb-6 align-end grid grid-cols-1">
-                    <button className="px-8 py-5" onClick={handleReduceVisuals}>Reduce visual distractions: {reduceVisuals ? "👍" : "👎"}</button>
+                    {/* <button className="px-8 py-5 pointer" onClick={handleReduceVisuals}>Reduce visual distractions: {reduceVisuals ? "👍" : "👎"}</button> */}
+                    {reduceVisuals !== undefined && <button className="px-8 py-5 pointer" onClick={() => { setState({ type: "changeBool" }) }}>Reduce visual distractions: {state.reduceVisuals ? "👍" : "👎"}</button>}
+                    {/* {reduceVisuals ? (
+                        <button className="px-8 py-5 pointer" onClick={() => {setReduceVisuals({type: "makeFalse"})}}>Reduce visual distractions: 👍</button>
+                    ) : (
+                        <button className="px-8 py-5 pointer" onClick={() => {setReduceVisuals({type: "makeTrue"})}}>Reduce visual distractions: 👎</button>
+                    )} */}
                 </div>
             </div>
             <div className="mx-auto w-3/5 py-4">
-                <div className="pb-6 grid grid-cols-2">
-                    <button className="px-8 py-5" onClick={handlePlay}>Play ▶</button>
-                    <button className="px-8 py-5" onClick={handlePause}>Pause ⏸</button>
+                <div className="pb-6 grid grid-cols-3">
+                    <button className="px-8 py-5" onClick={handleBack}>⬅ Go Back</button>
+                    {/* <button className="px-8 py-5" onClick={handlePause}>Pause ⏸</button> */}
+                    <button className="px-8 py-5 col-span-2" onClick={handlePlayPause}>Play ▶ / Pause ⏸</button>
                 </div>
                 <div>
                     <input

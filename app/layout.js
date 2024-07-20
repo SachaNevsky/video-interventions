@@ -88,17 +88,24 @@ export default function RootLayout({ children }) {
 					original = document.querySelector("#original")
 					blurred = document.querySelector("#blurred")
 					original.play();
-					blurred.play()
+					blurred.play();
 				} else if (data.type === "pauseBoth") {
 					original = document.querySelector("#original")
 					blurred = document.querySelector("#blurred")
 					original.pause();
-					blurred.pause()
+					blurred.pause();
 				} else if (data.type === 'seekBoth') {
 					original = document.querySelector("#original")
 					blurred = document.querySelector("#blurred")
 					original.currentTime = data.time;
 					blurred.currentTime = data.time;
+				} else if (data.type === "back10Both") {
+					original = document.querySelector("#original")
+					blurred = document.querySelector("#blurred")
+					if (original && blurred) {
+						original.currentTime = data.time
+						blurred.currentTime = data.time
+					}
 				}
 			});
 
