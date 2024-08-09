@@ -9,12 +9,18 @@ export default function Page() {
 
     const [captions, setCaptions] = useState("");
     const [timestamp, setTimestamp] = useState(0);
-    const [slowDown, setSlowDown] = useState(false);
     const [muted, setMuted] = useState(true);
     const [video, setVideo] = useState("bbc_space");
 
+    const speech = new Speech();
+
     const handleMuted = () => {
         setMuted(!muted);
+        if(muted) {
+            speech.setVolume(0.001);
+        } else {
+            speech.setVolume(1);
+        }
     }
 
     const selectVideo = (newVideo) => {
@@ -34,39 +40,43 @@ export default function Page() {
     useEffect(() => {
         const handleReadOut = () => {
             if (videoRef.current.textContent !== "") {
-                const speech = new Speech();
-
+                console.log(videoRef.current.currentTime)
+                
                 const toRead = videoRef.current.textContent.split("~~")[0]
                 const duration = parseFloat(videoRef.current.textContent.split("~~")[1])
                 const ttsDuration = parseFloat(videoRef.current.textContent.split("~~")[2])
 
-                window.socket.send(JSON.stringify({ type: 'playback', playback: duration / ttsDuration }));
-                // window.socket.send(JSON.stringify({ type: 'playback', playback: 0.3 }));
-                console.log()
-                speech.init({
-                    volume: 1.0,
-                    lang: "en-GB",
-                    rate: 1.1,
-                    pitch: 1,
-                    splitSentences: false,
-                }).then(data => {
-                    speech.speak({
-                        text: toRead,
-                        queue: true, // don't interupt if not finished
-                        listeners: {
-                            onend: (event) => {
-                                // console.log(toRead)
-                                // console.log(event.elapsedTime.toFixed(1));
-                                videoRef.current.spellcheck = false;
-                                window.socket.send(JSON.stringify({ type: 'playback', playback: 1 }));
+                if(isNaN(duration) || isNaN(ttsDuration)) {
+                    console.log("isNaN")
+                } else {
+                    window.socket.send(JSON.stringify({ type: 'playback', playback: duration / ttsDuration }));
+                    console.log(duration, ttsDuration)
+                    speech.init({
+                        volume: muted ? 0.001 : 1.0,
+                        lang: "en-GB",
+                        rate: 1.1,
+                        pitch: 1,
+                        splitSentences: false,
+                    }).then(data => {
+                        speech.speak({
+                            text: toRead,
+                            queue: true, // don't interupt if not finished
+                            listeners: {
+                                onstart: (event) => {
+                                    console.log(speech)
+                                },
+                                onend: (event) => {
+                                    videoRef.current.spellcheck = false;
+                                    window.socket.send(JSON.stringify({ type: 'playback', playback: 1 }));
+                                }
                             }
-                        }
+                        }).catch(e => {
+                            console.error("Error:", e)
+                        })
                     }).catch(e => {
-                        console.error("Error:", e)
+                        console.error("Error initialising speech:", e)
                     })
-                }).catch(e => {
-                    console.error("Error initialising speech:", e)
-                })
+                }
             }
         }
 
@@ -80,7 +90,12 @@ export default function Page() {
                         handleReadOut();
                     }
                 }
-                setSlowDown(videoRef.current.spellcheck);
+            }
+
+            if (videoRef.current.paused) {
+                speech.pause()
+            } else {
+                speech.resume()
             }
         };
 
@@ -102,9 +117,6 @@ export default function Page() {
                 <button className="py-5 px-8" onClick={() => selectVideo("bbc_space")}>
                     BBC News
                 </button>
-                {/* <button className="py-5 px-8" onClick={() => selectVideo("university_challenge")}>
-                    University Challenge
-                </button> */}
                 <button className="py-5 px-8" onClick={() => selectVideo("the_chase")}>
                     The Chase
                 </button>
@@ -116,7 +128,7 @@ export default function Page() {
                 </button>
             </div>
             <div className="mx-auto w-3/5 py-4">
-                <video ref={videoRef} muted={muted} className="h-full mx-auto" src={`/${video}/${video}.mp4`} type="video/mp4">
+                <video id={video} ref={videoRef} muted={muted} className="h-full mx-auto" src={`/${video}/${video}.mp4`} type="video/mp4">
                     <track id="subtitles" label="English" kind="subtitles" srcLang="en" src={`/${video}/${video}.vtt`} />
                 </video>
             </div>

@@ -43,9 +43,9 @@ export default function Page() {
 
     const handlePlayPause = () => {
         if (videoRef.current && videoRef.current.paused) {
-            window.socket.send(JSON.stringify({ type: 'play' }));
+            window.socket.send(JSON.stringify({ type: 'playTTS' }));
         } else {
-            window.socket.send(JSON.stringify({ type: 'pause' }));
+            window.socket.send(JSON.stringify({ type: 'pauseTTS' }));
         }
     }
 
@@ -110,7 +110,7 @@ export default function Page() {
 
                     if (currentCaption !== videoRef.current.textContent.split("~~")[0]) {
                         console.log(element.end, element.start)
-                        window.socket.send(JSON.stringify({ type: 'slowDown', caption: element.text, slowDown: slowDown, duration: parseFloat(convertTime(element.end)) - parseFloat(convertTime(element.start)), ttsDuration: element.tts_duration }));
+                        window.socket.send(JSON.stringify({ type: 'slowDown', caption: element.text, slowDown: slowDown, duration: parseFloat(convertTime(element.end)) - parseFloat(convertTime(element.start)), ttsDuration: element.ttsDuration }));
                     }
                 }
             }
@@ -120,7 +120,7 @@ export default function Page() {
                     setCurrentCaption(element.text);
 
                     if (currentCaption !== videoRef.current.textContent.split("~~")[0]) {
-                        window.socket.send(JSON.stringify({ type: 'slowDown', caption: element.text, slowDown: slowDown, duration: parseFloat(convertTime(element.end)) - parseFloat(convertTime(element.start)), ttsDuration: element.tts_duration }));
+                        window.socket.send(JSON.stringify({ type: 'slowDown', caption: element.text, slowDown: slowDown, duration: parseFloat(convertTime(element.end)) - parseFloat(convertTime(element.start)), ttsDuration: element.ttsDuration }));
                     }
                 }
             }

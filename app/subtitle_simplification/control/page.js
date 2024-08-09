@@ -72,7 +72,6 @@ export default function Home() {
     const handleReadOut = (playerSpeaker) => {
         if (currentCaption !== "") {
             if (playerSpeaker) {
-                videoRef.current.pause();
                 window.socket.send(JSON.stringify({ type: 'pause' }));
                 window.socket.send(JSON.stringify({ type: 'readOut', readOut: true }));
             } else {

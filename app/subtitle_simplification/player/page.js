@@ -11,9 +11,16 @@ export default function Page() {
     const [textColor, setTextColor] = useState("text-white");
     const [muted, setMuted] = useState(true);
     const [video, setVideo] = useState("bbc_space");
+    
+    const speech = new Speech();
 
     const handleMuted = () => {
         setMuted(!muted);
+        // if(muted) {
+        //     speech.setVolume(0.001);
+        // } else {
+        //     speech.setVolume(1);
+        // }
     }
 
     const selectVideo = (newVideo) => {
@@ -30,37 +37,69 @@ export default function Page() {
         }
     }, [video])
 
+    const handleReadOut = () => {
+        if (videoRef.current.textContent.split("~~")[0] !== "") {
+
+            speech.init({
+                volume: 1,
+                lang: "en-GB",
+                rate: 1,
+                pitch: 1
+            }).then(data => {
+                speech.speak({
+                    text: videoRef.current.textContent.split("~~")[0],
+                    queue: false,
+                    listeners: {
+                        onend: () => {
+                            videoRef.current.spellcheck = false;
+                        }
+                    }
+                }).catch(e => {
+                    console.error("Error:", e)
+                })
+            }).catch(e => {
+                console.error("Error initialising speech:", e)
+            })
+        }
+    }
+
+    useEffect(() => {
+        if (videoRef.current.spellcheck) {
+            handleReadOut();
+        }
+    }, [])
+
     useEffect(() => {
         const toBool = (text) => { return String(text).toLowerCase() === "true" };
 
-        const handleReadOut = () => {
-            if (videoRef.current.textContent.split("~~")[0] !== "") {
-                // videoRef.current.pause();
-                // window.socket.send(JSON.stringify({ type: 'pause' }));
-                const speech = new Speech();
+        // const handleReadOut = () => {
+        //     if (videoRef.current.textContent.split("~~")[0] !== "") {
+        //         // videoRef.current.pause();
+        //         // window.socket.send(JSON.stringify({ type: 'pause' }));
 
-                speech.init({
-                    volume: 1.0,
-                    lang: "en-GB",
-                    rate: 1,
-                    pitch: 1
-                }).then(data => {
-                    speech.speak({
-                        text: videoRef.current.textContent.split("~~")[0],
-                        queue: false,
-                        listeners: {
-                            onend: () => {
-                                videoRef.current.spellcheck = false;
-                            }
-                        }
-                    }).catch(e => {
-                        console.error("Error:", e)
-                    })
-                }).catch(e => {
-                    console.error("Error initialising speech:", e)
-                })
-            }
-        }
+        //         speech.init({
+        //             // volume: muted ? 0.001 : 1.0,
+        //             volume: 1,
+        //             lang: "en-GB",
+        //             rate: 1,
+        //             pitch: 1
+        //         }).then(data => {
+        //             speech.speak({
+        //                 text: videoRef.current.textContent.split("~~")[0],
+        //                 queue: false,
+        //                 listeners: {
+        //                     onend: () => {
+        //                         videoRef.current.spellcheck = false;
+        //                     }
+        //                 }
+        //             }).catch(e => {
+        //                 console.error("Error:", e)
+        //             })
+        //         }).catch(e => {
+        //             console.error("Error initialising speech:", e)
+        //         })
+        //     }
+        // }
 
         const checkTime = () => {
             if (videoRef.current.currentTime !== timestamp) {
@@ -68,10 +107,16 @@ export default function Page() {
                 setCaptions(videoRef.current.textContent.split("~~")[0]);
                 setSimplified(toBool(videoRef.current.textContent.split("~~")[1]));
                 // setTextColor(videoRef.current.textContent.split("~~")[2]);
-                if (videoRef.current.spellcheck) {
-                    handleReadOut();
-                }
+                // if (videoRef.current.spellcheck) {
+                //     handleReadOut();
+                // }
             }
+
+            // if (videoRef.current.paused) {
+            //     speech.pause()
+            // } else {
+            //     speech.resume()
+            // }
         };
 
         const interval = setInterval(checkTime, 100);

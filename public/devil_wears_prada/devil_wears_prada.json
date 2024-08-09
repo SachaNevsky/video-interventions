@@ -27,7 +27,7 @@
         {
             "start": "00:00:09.780",
             "end": "00:00:10.560",
-            "text": "Mm...",
+            "text": "Hmm...",
             "flesch_kincaid": "2",
             "duration": 0.78,
             "ttsDuration": 1.5
@@ -43,7 +43,7 @@
         {
             "start": "00:00:20.720",
             "end": "00:00:28.360",
-            "text": "Oh... no, no, n-nothing's you know, it's just that both those belts look exactly the same to me.",
+            "text": "Oh... no, no, n-nothing is, you know, it's just that both those belts look exactly the same to me.",
             "flesch_kincaid": "2",
             "duration": 7.64,
             "ttsDuration": 7.7
