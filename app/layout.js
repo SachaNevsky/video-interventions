@@ -106,10 +106,8 @@ export default function RootLayout({ children }) {
 						original.currentTime = data.time
 						blurred.currentTime = data.time
 					}
-				} else if (data.type === "playTTS") {
-					video.play();
-				} else if (data.type === "pauseTTS") {
-					video.pause();
+				} else if (data.type === "FK_colour") {
+					video.textContent = data.colour;
 				}
 			});
 

@@ -24,6 +24,11 @@ export default function Page() {
         return (parseInt(text[0], 10) * 60 * 60) + (parseInt(text[1], 10) * 60) + parseFloat(text[2])
     }
 
+    const prettyTime = (t) => {
+        const time = parseInt(convertTime(t));
+        return `${Math.floor(time / 60)}:${('0' + parseInt(time - Math.floor(time / 60) * 60)).slice(-2)}`
+    }
+
     const handlePlay = () => {
         videoRef.current.play();
         window.socket.send(JSON.stringify({ type: 'play', time: videoRef.current.currentTime }));
@@ -78,16 +83,11 @@ export default function Page() {
                 }
             }
 
-            console.log(currentCaptionIndex, newIndex, complexIndex)
-
-            if (video === "bbc_space" && newIndex) {
-                newTime = convertTime(captions[newIndex].start);
-            } else if (video === "university_challenge" && newIndex) {
-                newTime = convertTime(captions[newIndex].start);
-            }
+            newTime = convertTime(captions[newIndex].start);
 
             setCurrentCaptionIndex(newIndex);
             setTimestamp(newTime);
+
             window.socket.send(JSON.stringify({ type: 'seek', time: newTime }));
             window.socket.send(JSON.stringify({ type: 'pause' }));
         }
@@ -104,6 +104,24 @@ export default function Page() {
                 setTimestamp(videoRef.current.currentTime);
             }
 
+            if(videoRef.current !== null && window.socket !== undefined && window.socket.readyState === socket.OPEN) {
+                if (captions[currentCaptionIndex].flesch_kincaid < 8) {
+                    if (videoRef.current.textContent !== "black") {
+                        window.socket.send(JSON.stringify({ type: "FK_colour", colour: "black" }));
+                    }
+                }
+                if(captions[currentCaptionIndex].flesch_kincaid >= 8 && captions[currentCaptionIndex].flesch_kincaid < 12) {
+                    if (videoRef.current.textContent !== "orange") {
+                        window.socket.send(JSON.stringify({ type: "FK_colour", colour: "orange" }));
+                    }
+                }
+                if (captions[currentCaptionIndex].flesch_kincaid >= 12) {
+                    if (videoRef.current.textContent !== "red") {
+                        window.socket.send(JSON.stringify({ type: "FK_colour", colour: "red" }));
+                    }
+                }
+            }
+
             if ((new Set(complexIndex)).size !== complexIndex.length) {
                 const noDuplicates = new Set(complexIndex)
                 setComplexIndex(Array.from(noDuplicates))
@@ -117,7 +135,7 @@ export default function Page() {
             }
         };
 
-        const interval = setInterval(checkTime, 100);
+        const interval = setInterval(checkTime, 10);
 
         return () => {
             clearInterval(interval);
@@ -178,27 +196,48 @@ export default function Page() {
         }
     }, [captions, complexIndex, timestamp, video])
 
-    useEffect(() => {
-        let captions = ""
-        if (video === "bbc_space") {
-            captions = bbc_space_captions.captions
-        } else if (video === "university_challenge") {
-            captions = university_challenge_captions.captions
+    // useEffect(() => {
+    //     let captions = ""
+    //     if (video === "bbc_space") {
+    //         captions = bbc_space_captions.captions
+    //     } else if (video === "university_challenge") {
+    //         captions = university_challenge_captions.captions
+    //     }
+    // }, [timestamp, video])
+
+    const nearestComplexIndex = (index) => {
+        let returnValue = 0;
+        for (const i of complexIndex) {
+            if (i <= index) {
+                returnValue = i;
+            } else if (i > index) {
+                break;
+            }
         }
-    }, [timestamp, video])
+
+        return captions[returnValue];
+    }
 
     return (
         <div className="bg-black py-4 h-screen text-white text-center grid grid-rows-3 auto-rows-max m-auto">
             <div className="pt-4">
                 <a className="m-auto px-8 py-5 mx-3" href="/">Home 🏠</a>
-                <a className="m-auto px-8 py-5 mx-3" href="/slower_subtitles/player">Player 📺</a>
+                <a className="m-auto px-8 py-5 mx-3" href="/context_aware_rewind/player">Player 📺</a>
             </div>
             <video ref={videoRef} controls muted className="mx-auto w-3/5 hidden" src={`/${video}/${video}.mp4`} type="video/mp4">
                 <track id="subtitles" label="English" kind="subtitles" srcLang="en" src={`/${video}/${video}_simplified.vtt`} />
             </video>
             <div className="mx-auto w-3/5 py-4 text-center row-span-1 flex flex-col">
                 <div className="pb-6 grid grid-cols">
-                    <button className="px-8 py-5" onClick={handleSmartBack}>⏪ Smart Back</button>
+                    <button className="px-8 py-5 mb-2" onClick={handleSmartBack}>⏪ Smart Back</button>
+                    <p>{captions[currentCaptionIndex].flesch_kincaid > 8 ? (
+                        `Go back to ${prettyTime(captions[currentCaptionIndex].start)} ${captions[currentCaptionIndex].flesch_kincaid < 12 ? "🟧" : "🟥"}`
+                    ) : (currentCaptionIndex > complexIndex[0]) ? (
+                        `Go back to ${prettyTime(nearestComplexIndex(currentCaptionIndex).start)} ${nearestComplexIndex(currentCaptionIndex).flesch_kincaid < 12 ? "🟧" : "🟥"}`
+                    ) : (
+                        ``
+                    )}</p>
+                    {/* <p>{captions[currentCaptionIndex].flesch_kincaid > 8 ? captions[currentCaptionIndex].flesch_kincaid : ""}</p> */}
                 </div>
             </div>
             <div className="mx-auto w-3/5 py-4">

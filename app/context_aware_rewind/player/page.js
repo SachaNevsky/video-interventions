@@ -44,7 +44,7 @@ export default function Page() {
         <div className="bg-black py-4 h-screen text-white text-center grid m-auto">
             <div className="pt-4">
                 <a href="/" className="m-auto px-8 py-5 mx-3">Home 🏠</a>
-                <a href="/slower_subtitles/control" className="m-auto px-8 py-5 mx-3">Controls ⚙</a>
+                <a href="/context_aware_rewind/control" className="m-auto px-8 py-5 mx-3">Controls ⚙</a>
             </div>
             <div className="mx-auto w-3/5 py-4">
                 <button className="py-5 px-8" onClick={() => selectVideo("bbc_space")}>
@@ -72,6 +72,11 @@ export default function Page() {
                         srcLang="en"
                         src={`/${video}/${video}_simplified.vtt`} />
                 </video>
+                {videoRef.current ? (
+                    <div style={{backgroundColor: videoRef.current.textContent, color: videoRef.current.textContent || "black"}}>.</div>
+                ) : (
+                    ""
+                )}
             </div>
             <div className="mx-auto w-3/5 text-center">
                 <button className="py-5 px-8" onClick={handleMuted}>Mute {muted ? "🔇" : "🔊"}</button>

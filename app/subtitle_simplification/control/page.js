@@ -187,7 +187,7 @@ export default function Home() {
                 <a className="m-auto px-8 py-5 mx-3" href="/">Home 🏠</a>
                 <a className="m-auto px-8 py-5 mx-3" href="/subtitle_simplification/player">Player 📺</a>
             </div>
-            <video ref={videoRef} controls muted className="mx-auto w-3/5 hidden" playbackRate={0.6} src={`/${video}/${video}.mp4`} type="video/mp4">
+            <video ref={videoRef} controls muted className="mx-auto w-3/5 hidden" src={`/${video}/${video}.mp4`} type="video/mp4">
                 <track id="subtitles" label="English" kind="subtitles" srcLang="en" src={`/${video}/${video}.vtt`} />
             </video>
             <div className="mx-auto w-3/5 py-4 row-span-1">
