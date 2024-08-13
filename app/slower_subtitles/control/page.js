@@ -103,19 +103,21 @@ export default function Home() {
             setCaptions(devil_wears_prada_captions)
         }
 
-        for (const element of captions.captions) {
-            if (parseFloat(convertTime(element.start)) < timestamp && parseFloat(convertTime(element.end)) >= timestamp) {
-                setCaption(element.text)
-                if (slowMode && parseInt(element.flesch_kincaid) >= grade) {
-                    const reduce = Math.min((element.flesch_kincaid - (grade - 1)) * magnitude, 11 * magnitude);
-                    setPlayback(1 - reduce);
-                    console.log("Slowed:", element.flesch_kincaid, playback)
-                    videoRef.current.playbackRate = playback;
-                    window.socket.send(JSON.stringify({ type: "playback", playback }))
-                } else {
-                    setPlayback(1);
-                    console.log("Standard:", element.flesch_kincaid, playback)
-                    window.socket.send(JSON.stringify({ type: "playback", playback }))
+        if(videoRef.current !== null && window.socket !== undefined && window.socket.readyState === socket.OPEN) {
+            for (const element of captions.captions) {
+                if (parseFloat(convertTime(element.start)) < timestamp && parseFloat(convertTime(element.end)) >= timestamp) {
+                    setCaption(element.text)
+                    if (slowMode && parseInt(element.flesch_kincaid) >= grade) {
+                        const reduce = Math.min((element.flesch_kincaid - (grade - 1)) * magnitude, 11 * magnitude);
+                        setPlayback(1 - reduce);
+                        console.log("Slowed:", element.flesch_kincaid, playback)
+                        // videoRef.current.playbackRate = playback;
+                        window.socket.send(JSON.stringify({ type: "playback", playback }))
+                    } else {
+                        setPlayback(1);
+                        console.log("Standard:", element.flesch_kincaid, playback)
+                        window.socket.send(JSON.stringify({ type: "playback", playback }))
+                    }
                 }
             }
         }
@@ -149,6 +151,7 @@ export default function Home() {
                         <label className="px-4"> Strong</label>
                     </div>
                 }
+                {playback}
             </div>
             <div className="mx-auto w-3/5 py-4 ">
                 <div className="pb-6 grid grid-cols-3">
