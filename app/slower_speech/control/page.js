@@ -43,9 +43,9 @@ export default function Page() {
 
     const handlePlayPause = () => {
         if (videoRef.current && videoRef.current.paused) {
-            window.socket.send(JSON.stringify({ type: 'playTTS' }));
+            window.socket.send(JSON.stringify({ type: 'play' }));
         } else {
-            window.socket.send(JSON.stringify({ type: 'pauseTTS' }));
+            window.socket.send(JSON.stringify({ type: 'pause' }));
         }
     }
 
